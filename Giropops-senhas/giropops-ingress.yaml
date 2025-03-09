@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: giropops-senhas
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec: 
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - desafio-hpa-giropops.ferpdias.com.br
+    secretName: giropops-senhas-tls
+  rules:
+  - host: desafio-hpa-giropops.ferpdias.com.br
+    http:
+      paths:
+        - path: /
+          backend:
+            service:
+              name: giropops-senhas
+              port:
+                number: 5000
+          pathType: Prefix

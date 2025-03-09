@@ -4,4 +4,6 @@ Criar, usando o Kubernetes, Pods com alta disponibilidade usando a imagem `ferpd
 
 <br>
 
-Estou usando o Kubernetes localmente (Kubeadm) em 03 VMs: 01 Control-plane e 02 Workers. T
+A infraestrutura é formada por 04 VMs hospedadas na Oracle Cloud Infrastructure (OCI). As VMs estão executando o Kubeadm.
+
+O link de acesso ao sistema Giropops-Senhas é: https://desafio-hpa-giropops.ferpdias.com.br.

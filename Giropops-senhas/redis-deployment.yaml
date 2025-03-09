@@ -1,26 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: giropops-senhas
+  name: redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: giropops-senhas
+      app: redis
   template:    
     metadata:
       labels:
-        app: giropops-senhas
+        app: redis
     spec:
       containers:
-      - name: giropops-senhas
-        image: ferpdias/linuxtips-giropops-senhas:1.0
-        env:
-        - name: REDIS_HOST
-          value: redis
+      - name: redis
+        image: redis
         ports:
-        - containerPort: 5000
-          name: giropops-senhas
+        - containerPort: 6379
+          name: redis
         resources:
           limits: 
             cpu: 500m
