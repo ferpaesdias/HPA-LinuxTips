@@ -23,8 +23,6 @@ spec:
           name: giropops-senhas
         resources:
           limits: 
-            cpu: 500m
-            memory: 256Mi
-          requests:
-            cpu: 250m
-            memory: 128Mi
+            # Limitar bastante o uso de CPU e memória para a criação de Pods pelo HPA
+            cpu: "0.02"
+            memory: 32Mi
