@@ -80,4 +80,106 @@ Como em meu Cluster eu não tenho um objeto Ingress configurado, eu optei por ex
  
 <br>
 
+Use este endereço para acessar o app Giropops-Senhas
 
+```shell
+http://<IP_do_seu_cluster>:30100
+```
+
+<br>
+
+##  Metrics Server
+
+Para utilizar o HPA funcionar é necessário ter o Metrics Server. Execute o comando abaixo para configurá-lo:
+
+```shell
+kubectl apply -f metrics-server.yaml
+```
+
+<br>
+
+O comando abaixo mostra o uso de CPU e de memória dos Nodes:
+
+```shell
+kubectl top nodes
+```
+
+<br>
+
+O comando abaixo mostra o uso de CPU e de memória dos Pods:
+
+```shell
+kubectl top pods
+```
+
+<br>
+
+
+## HPA (Horizontal Pods Autoscaler)
+
+Execute o comando abaixo para configurar o HPA:
+
+```shell
+kubectl apply -f hpa.yaml
+```
+
+<br>
+
+O HAP está configurado para ter no mínimo 03 réplicas, portanto, agora você deve ter 03 Pods do Giropops-Senhas:
+
+```shell
+kubectl get pods
+NAME                               READY   STATUS        RESTARTS   AGE
+giropops-senhas-5b74c99d66-nbpdj   1/1     Running       0          15s
+giropops-senhas-5b74c99d66-qmxbf   1/1     Running       0          23s
+giropops-senhas-5b74c99d66-qmxfz   1/1     Running       0          15s
+redis-974d9f5ff-s45w7              1/1     Running       0          46m
+```
+
+<br>
+
+## Iniciando o Locust
+
+Execute o comando abaixo para iniciar o Deployment, o Service e o ConfigMap:
+
+```shell
+kubectl apply -f locust.yaml
+```
+ 
+O Dockerfile e demais arquivos do Locust estão no diretório Locust.
+
+<br>
+
+
+Use este endereço para acessar o Locust:
+
+```shell
+http://<IP_do_seu_cluster>:30101
+```
+
+<br>
+
+Preencha os campos conforme a imagem abaixo e clique em start:
+![Preenchimento do Locust](./Imagens/Locust01.png)
+
+
+<br>
+
+Liste os Pods e veja a quantidade de Pods do Giropops-Senhas aumentar:
+
+```shell
+kubectl get pods
+NAME                               READY   STATUS        RESTARTS   AGE
+giropops-senhas-5b74c99d66-2wtn4   1/1     Running   0             7m50s
+giropops-senhas-5b74c99d66-4h78f   1/1     Running   0             8m20s
+giropops-senhas-5b74c99d66-8cfrc   1/1     Running   0             29m
+giropops-senhas-5b74c99d66-8q84x   1/1     Running   0             8m20s
+giropops-senhas-5b74c99d66-grk9q   1/1     Running   0             29m
+giropops-senhas-5b74c99d66-mgmxr   1/1     Running   0             28m
+giropops-senhas-5b74c99d66-nmdl4   1/1     Running   0             29m
+giropops-senhas-5b74c99d66-pm2b9   1/1     Running   0             8m20s
+giropops-senhas-5b74c99d66-pvv85   1/1     Running   0             8m20s
+giropops-senhas-5b74c99d66-wk9k5   1/1     Running   0             7m50s
+locust-giropops-c5797f8f5-sqg2k    1/1     Running   1 (14m ago)   14m
+redis-974d9f5ff-s45w7              1/1     Running       0          46m
+```
