@@ -16,10 +16,36 @@ spec:
       name: cpu
       target: 
         type: Utilization
+        # Média de consumo em porcentagem
         averageUtilization: 50
   - type: Resource
     resource:
       name: memory
       target:
         type: Utilization
+        # Média de consumo em porcentagem
         averageUtilization: 50
+  # Mede a métrica de um determinado container. Aqui não faz sentido porque o Pod só tem um container. Está configurado somente para fins de estudo
+  - type: ContainerResource
+    containerResource:  
+      name: cpu
+      container: giropops-senhas
+      target: 
+        type: Utilization
+        # Média de consumo em porcentagem
+        averageUtilization: 50
+  behavior:
+    scaleUp:
+      # Tempo que deve permanecer acima do valor pré-definido para começar a aumentar a quantidade de Pods (em segundos)
+      stabilizationWindowSeconds: 5
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 10
+    scaleDown:
+      # Tempo que deve permanecer acima do valor pré-definido para começar a diminuir a quantidade de Pods (em segundos)
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 10
