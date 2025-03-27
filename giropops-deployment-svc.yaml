@@ -25,7 +25,7 @@ spec:
           limits: 
             # Limitar bastante o uso de CPU e memória para a criação de Pods pelo HPA
             cpu: 50m
-            memory: 32Mi
+            memory: 75Mi
 ---
 apiVersion: v1
 kind: Service
