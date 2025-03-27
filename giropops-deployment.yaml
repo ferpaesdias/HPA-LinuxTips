@@ -24,5 +24,19 @@ spec:
         resources:
           limits: 
             # Limitar bastante o uso de CPU e memória para a criação de Pods pelo HPA
-            cpu: "0.02"
+            cpu: 50m
             memory: 32Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: giropops-senhas
+spec:
+  selector:
+    app: giropops-senhas
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 30100
+  type: NodePort
